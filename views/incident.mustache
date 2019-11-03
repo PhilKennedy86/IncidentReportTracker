@@ -1,0 +1,153 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="" />
+    <meta name="keywords" content="body guard,business,emergency,fire department,Fire Fighters,officer, police,police department, protection,safety,security,visual composer,volunteer" />
+    <meta name="author" content="BDEXPERT" />
+
+    <title>HPD Incident Tracker</title>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/owl.carousel.css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/lightbox.css">
+    <link href="/css/plugin.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/ico" href="/images/favicon.png" />
+
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/responsive.css" rel="stylesheet">
+
+    <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      #map {
+        position: static !important;
+      }
+    </style>
+</head>
+
+<body>
+        <!-- MAINMENU-AREA-START -->
+        <div class="mainmenu-area">
+            <div class="container">
+                <div class="row">
+                    <div class="mainmenu">
+                        <div class="col-xs-12">
+                            <nav class="navbar" id="navbar-example2">
+                                <div class="navbar-header">
+                                    <button class="collapsed navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-example-js-navbar-scrollspy">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                                <div class="collapse navbar-collapse bs-example-js-navbar-scrollspy">
+                                    <ul class="nav navbar-nav">
+                                        <li class="active"><a href="/" title="Home">ALL INCIDENTS</a></li>
+                                        <li><a href="/add-incident" title="About Us">ADD INCIDENT</a></li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MAINMENU-AREA-END -->
+        
+        <!-- CONTENT -->
+        <h1 class='incident-title'>Incident Information</h1>
+        <div class='incident-map-container'>
+          <div class='incident-details'>
+              <h3>{{recordid}}</h3>
+              <h3>Priority: {{callpriority}}</h3>
+              <h3>Status: {{callstatus}}</h3>
+              <p>Time: {{calldatetime}}</p>
+              <p>District: {{locationdistrict}}, Beat: {{locationbeat}}</p>
+              <p>Location: {{locationaddress}}, {{locationcity}}, TX, {{locationzipcode}}</p>
+              <p>Incident: {{incidentdescription}}</p>
+              <p>Responding Unit: {{respondingunit}}</p>
+              <p>Notes: {{incidentnotes}}</p>
+
+              <button><a href='/update-incident/{{recordid}}'>Update Incident</a></button>
+              <button><a href='/'>Return to incidents</a></button>
+          </div>
+          <div id="map"></div>
+          {{! <button><a id="viewMapLinkId">View incident location on map</button> }}
+        </div>
+    
+    <script>
+        let address = '{{locationaddress}}'
+        let urladdress = address.replace(/\s/g,'+')
+        console.log(urladdress)
+
+        //let completedLink = `\view-map?`
+
+        //let viewMapLink = document.getElementById("viewMapLinkId")
+        //viewMapLink.setAttribute('href',completedHrefLink)
+
+        let city = '{{locationcity}}'
+        let urlcity = city.replace(/\s/g,'+')
+        console.log(urlcity)
+        
+        let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${urladdress},+${urlcity},+TX&key=AIzaSyDseGmY53qJJ9Zj3kVJWx1MX2Sd4y9f61I`
+        console.log(url)
+
+        fetch(url).then(response => response.json())
+        .then(incidentInfo => {
+            if(incidentInfo.results && incidentInfo.results.length > 0) {
+                lat = incidentInfo.results[0].geometry.location.lat
+                lng = incidentInfo.results[0].geometry.location.lng
+                
+                
+                initMap()
+            }})
+        .catch(error => console.log('Error:', error))
+    </script>
+
+
+    <script>
+      var map, infoWindow;
+      var lat = 29.7604, lng = -95.3698
+      
+      function initMap() {
+        var uluru = {lat: lat, lng: lng};
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 12, center: uluru});
+            
+        var marker = new google.maps.Marker({position: uluru, map: map});
+      }
+    </script>
+
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDseGmY53qJJ9Zj3kVJWx1MX2Sd4y9f61I&callback=initMap">
+    </script>
+  <script src="/js/vendor/jquery.min.js" type="text/javascript"></script>
+  <script src="/js/vendor/bootstrap.min.js" type="text/javascript"></script>
+
+  <script src="/js/lightbox.js"></script>
+  <script src="/js/jquery.circlechart.js"></script>
+  <script src="/js/owl.carousel.min.js" type="text/javascript"></script>
+
+  <script src="/js/main.js" type="text/javascript"></script>
+</body>
+</html>

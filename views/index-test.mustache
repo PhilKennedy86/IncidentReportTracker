@@ -1,0 +1,30 @@
+<html>
+<head>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class='container'>
+        <div class='content'>
+            <h1 class='title'>INCIDENTS</h1>
+
+            <div class='flex-container'>
+            {{#incidents}}
+                    <div class='entry'>
+                        <h3>{{recordid}}</h3>
+                        <div class='entry-contents'>
+                            <h3>Priority: {{callpriority}}</h3>
+                            <h3>Status: {{callstatus}}</h3>
+                            <p>Time: {{calldatetime}}
+                            <p>District: {{locationdistrict}}, Beat: {{locationbeat}}</p>
+                            <p>Incident: {{incidentdescription}}</p>
+                            <p>Responding Unit: {{respondingunit}}</p>
+                        </div>
+                        <button><a href='/update-incident/{{recordid}}'>Update Incident</a></button>
+                        <button><a href='/incident/{{recordid}}'>View Incident</a></button>
+                    </div>
+            {{/incidents}}
+            <div>
+        </div>
+    </div>
+</body>
+</html>

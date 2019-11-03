@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+<body>
+    <div>
+        <div id='map'></div>
+    </div>
+
+    <script>
+      var map, infoWindow;
+      var lat = 29.7604, lng = 95.3698
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 29.7604, lng: 95.3698},
+          zoom: 12
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        //HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: lat,
+              lng: lng
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Incident location');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+    </script>
+
+    <script>
+        let address = '{{address}}'
+
+        let city = '{{city}}'
+
+        
+        let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address},+${city},+TX&key=AIzaSyDseGmY53qJJ9Zj3kVJWx1MX2Sd4y9f61I`
+        console.log(url)
+
+        fetch(url).then(response => response.json())
+        .then(incidentInfo => {
+            if(incidentInfo.results && incidentInfo.results.length > 0) {
+                lat = incidentInfo.results[0].geometry.location.lat
+                lng = incidentInfo.results[0].geometry.location.lng
+                initMap()
+            }})
+        .catch(error => console.log('Error:', error))
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDseGmY53qJJ9Zj3kVJWx1MX2Sd4y9f61I&callback=initMap">
+    </script>
+</body>
+</html>

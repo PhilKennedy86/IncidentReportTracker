@@ -1,0 +1,125 @@
+
+.title {
+    font-size: 50;
+    text-align: left;
+    margin-top: -200px;
+}
+
+.container {
+    position: relative;
+    width: 100vw;
+    top: 0px;
+    left: 0px;
+
+}
+
+.content {
+    position: absolute;
+    width: 1100px;
+    background: white;
+    margin-bottom: 20px;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    width:
+}
+
+.entry {
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.entry-contents {
+    margin-left: 70px;
+}
+
+.entry-buttons {
+    margin-left: 300px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    padding: 10px;
+}
+
+.button {
+    margin: 10px;
+    padding: 10px;
+}
+
+.add-incident-title {
+    width: 100vw;
+    justify-content: center;
+    font-size: 50px;
+    margin-top: 30px;
+    margin-left: 10vw;
+}
+
+.add-incident-form {
+    display: flex;
+    justify-content: center;
+}
+
+.add-incident-form-details {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+
+}
+
+.add-incident-form-button {
+    margin-top: 10px;
+}
+
+.update-incident-title {
+    width: 100vw;
+    justify-content: center;
+    font-size: 50px;
+    margin-top: 30px;
+    margin-left: 10vw;
+}
+
+.update-incident-form {
+    display: flex;
+    justify-content: center;
+}
+
+.update-incident-form-details {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+}
+
+.update-incident-form-button {
+    margin-top: 10px;
+}
+
+.incident-title {
+    width: 100vw;
+    justify-content: center;
+    font-size: 50px;
+    margin-top: 30px;
+    margin-left: 10vw;
+}
+
+.incident-details {
+    z-index: 99999;
+    background: white;
+    width: 25%;
+    padding: 10px;
+    margin-left: 30px;
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 5px;
+}
+
+.incident-map-container {
+    display: flex;
+}
+
